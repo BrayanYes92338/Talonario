@@ -13,7 +13,7 @@ body {
 }
 
 .header {
-  background-color: #146ECB;
+  background-color: #014BAE;
   height: 80px;
   position: fixed;
   width: 100%;
@@ -22,20 +22,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 
 }
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.contenedor {
+  margin-top: 120px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: center;
+  gap: 10px;
+
 }
 
-.pdr {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: row;
-}
 
 .titulo-header {
   color: white;
@@ -60,13 +59,13 @@ main {
   border: solid 2px gray;
   background-color: white;
   width: 380px;
-  height: 550px;
+  height: 570px;
   border-radius: 20px;
   z-index: 3;
 }
 
 .color-titulo {
-  background-color: #146ECB;
+  background-color: #014BAE;
   height: 20px;
   color: white;
   display: flex;
@@ -87,7 +86,7 @@ main {
 input,
 select {
   padding: 17px 25px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   border: 1px solid gray;
   color: #283629;
   outline: none;
@@ -95,7 +94,7 @@ select {
 
 .button {
   margin-top: 20px;
-  background-color: #146ECB;
+  background-color: #014BAE;
   color: white;
   border-radius: 14px;
   padding: 17px;
@@ -108,76 +107,82 @@ select {
 }
 
 .button:hover {
-  background-color: #3e8ddd;
+  background-color: #3179c2;
 }
 
-.informacion {
+.cont-informacion {
+  background: #E7E7E7;
   width: 250px;
-  background-color: rgb(206, 204, 204);
-  border-radius: 15px;
+  height: 340px;
+  border-radius: 20px;
+  padding: 15px;
 }
 
-.acciones {
+.titulo-info {
+  text-align: center;
+}
+
+.cuerpo-info {
+  background: white;
+  height: 255px;
+  border-radius: 20px;
+  margin-top: 9px;
+}
+
+.icon {
+  padding: 15px 8px;
+
+}
+
+.boton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.btn-editar {
+  padding: 12px 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  background-color: #014BAE;
+  cursor: pointer;
+}
+
+.cont-acciones {
+  background: #E7E7E7;
   width: 250px;
-  background-color: rgb(206, 204, 204);
-  border-radius: 15px;
+  height: 340px;
+  border-radius: 20px;
+  padding: 15px;
 }
 
-.inf {
-  background-color: rgb(255, 255, 255);
-  margin: 15px;
-  border-radius: 5px;
-  padding: 5px;
+.cuerpo-acciones {
+  background: white;
+  height: 255px;
+  border-radius: 20px;
+  margin-top: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.acc {
-  background-color: rgb(255, 255, 255);
-  margin: 15px;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.but {
-  background-color: #146ECB;
-  color: white;
-  width: 90px;
-  height: 35px;
-  margin: 10px;
-  margin-left: 28%;
-  font-weight: 800;
-  border-radius: 5px;
+.btn-acciones{
+  padding: 9px 9px;
+  border-radius: 8px;
   border: none;
-  box-shadow: inset;
+  color: white;
+  background-color: #014BAE;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
-.butt {
-  background-color: #146ECB;
-  border: none;
-  border-radius: 15px;
-  color: white;
-  width: 180px;
-  height: 60px;
-  margin: 3%;
-  cursor: pointer;
-}
-
-.re {
-  background-color: #146ECB;
-  border-radius: 50px;
-  border: none;
-  width: 50px;
-  height: 50px;
-  color: white;
-  font-weight: 900;
-  font-size: 30px;
-  margin: 10px;
-  margin-left: 15%;
-  cursor: pointer;
-}
 
 .footer {
-  background-color: #11579e;
+  background-color: #014BAE;
   color: white;
   padding: 20px;
   bottom: 0;
@@ -187,4 +192,5 @@ select {
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  z-index: -1;
 }
