@@ -59,7 +59,7 @@ body {
   border: solid 2px gray;
   background-color: white;
   width: 380px;
-  height: 570px;
+  height: 580px;
   border-radius: 20px;
   z-index: 3;
 }
@@ -178,6 +178,12 @@ select {
   background-color: #014BAE;
   cursor: pointer;
   margin-bottom: 15px;
+}
+
+.error{
+  color: red;
+  font-size: 14px;
+  font-weight: lighter;
 }
 
 

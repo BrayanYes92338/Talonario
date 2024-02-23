@@ -26,7 +26,7 @@
               <option value="0-999">0-999</option>
             </select>
             <input type="date" placeholder="Fecha de sorteo" :min="fechaMinima" v-model="fecha">
-            <p v-if="error != ''">{{ error }}</p>
+            <p class="error" v-if="error != ''">{{ error }}</p>
             <button class="button" @click="validar()">Guardar</button>
           </div>
 
@@ -35,14 +35,15 @@
       <div class="contenedor">
         <div class="cont-informacion">
           <h3 class="titulo-info">Información del Talonario</h3>
-          <div class="cuerpo-info">
-            <p class="icon">🏆<span>{{ talonario.vrifa }}</span></p>
-            <p class="icon">💲<span>{{ talonario.vboleta }}</span></p>
-            <p class="icon">🏦<span>{{ talonario.loterias }}</span></p>
-            <p class="icon">🗓️<span>{{ talonario.fecha }}</span></p>
+          <div class="cuerpo-info" v-for="(item, i) in datostalonario" :key="i">
+            <p class="icon">🏆<span>{{ item.vrifa }}</span></p>
+            <p class="icon">💲<span>{{ item.vboleta }}</span></p>
+            <p class="icon">🏦<span>{{ item.loterias }}</span></p>
+            <p class="icon">🗓️<span>{{ item.fecha }}</span></p>
             <div class="boton">
-              <button class="btn-editar"> Editar<i class="fa fa-edit"></i></button>
+              <button class="btn-editar" @click="editar(item, i)"> Editar<i class="fa fa-edit"></i></button>
             </div>
+            
           </div>
         </div>
         <div class="cont-cantboletas"></div>
@@ -74,97 +75,170 @@ let loterias = ref("");
 let cantboletas = ref("");
 let fecha = ref("");
 let error = ref("");
-let talonario = ref({ vrifa: '', vboleta: '', loterias: '', fecha: '' });
+let edit = true;
+let index = null;
 
-
-function formatCurrency(amount) {
-  return amount.toLocaleString('es-ES', { style: 'currency', currency: 'COP' });
-}
 
 function validar() {
   let fecha_actual = new Date()
   let fecha_select = new Date(fecha.value);
 
-  if (vboleta.value == "") {
-    error.value = "El valor de la boleta es requerido"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (vboleta.value <= 0) {
-    error.value = "El valor de la boleta no puede ser menor o igual a 0"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (isNaN(vboleta.value)) {
-    error.value = "El valor de la boleta debe ser numerico"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (vrifa.value == "") {
-    error.value = "El valor de la rifa es requerido"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (vrifa.value <= 0) {
-    error.value = "El valor de la rifa no puede ser menor o igual a 0"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  }
-  else if (isNaN(vrifa.value)) {
-    error.value = "El valor de la rifa debe ser numerico"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
 
-  } else if (loterias.value == "") {
-    error.value = "Seleccione la loteria que quieras jugar"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (cantboletas.value == "") {
-    error.value = "Seleccione la cantidad de boletas"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (fecha.value == "") {
-    error.value = "Seleccione la fecha del sorteo"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
-  } else if (fecha_actual > fecha_select) {
-    error.value = "La fecha del sorteo no puede ser menor a la fecha actual"
-    setTimeout(() => {
-      error.value = ""
-    }, 5000);
+  if (edit == true) {
+    if (vboleta.value == "") {
+      error.value = "El valor de la boleta es requerido"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (vboleta.value <= 0) {
+      error.value = "El valor de la boleta no puede ser menor o igual a 0"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (isNaN(vboleta.value)) {
+      error.value = "El valor de la boleta debe ser numerico"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (vrifa.value == "") {
+      error.value = "El valor de la rifa es requerido"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (vrifa.value <= 0) {
+      error.value = "El valor de la rifa no puede ser menor o igual a 0"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    }
+    else if (isNaN(vrifa.value)) {
+      error.value = "El valor de la rifa debe ser numerico"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
 
+    }else if(vrifa.value < vboleta.value){
+      error.value = "El valor de la boleta no puede ser mayor al valor de la rifa"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+
+    } else if (loterias.value == "") {
+      error.value = "Seleccione la loteria que quieras jugar"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (cantboletas.value == "") {
+      error.value = "Seleccione la cantidad de boletas"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (fecha.value == "") {
+      error.value = "Seleccione la fecha del sorteo"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (fecha_actual > fecha_select) {
+      error.value = "La fecha del sorteo no puede ser menor a la fecha actual"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+
+    } else {
+      agregar()
+
+      modal_intro.value = false
+    }
   } else {
-    // form()
-    actualizarInformacionTalonario()
-    limpiar()
-    modal_intro.value = false
+    if (vboleta.value == "") {
+      error.value = "El valor de la boleta es requerido"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (vboleta.value <= 0) {
+      error.value = "El valor de la boleta no puede ser menor o igual a 0"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (isNaN(vboleta.value)) {
+      error.value = "El valor de la boleta debe ser numerico"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (vrifa.value == "") {
+      error.value = "El valor de la rifa es requerido"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (vrifa.value <= 0) {
+      error.value = "El valor de la rifa no puede ser menor o igual a 0"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    }
+    else if (isNaN(vrifa.value)) {
+      error.value = "El valor de la rifa debe ser numerico"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+
+    } else if (loterias.value == "") {
+      error.value = "Seleccione la loteria que quieras jugar"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (cantboletas.value == "") {
+      error.value = "Seleccione la cantidad de boletas"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (fecha.value == "") {
+      error.value = "Seleccione la fecha del sorteo"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+    } else if (fecha_actual > fecha_select) {
+      error.value = "La fecha del sorteo no puede ser menor a la fecha actual"
+      setTimeout(() => {
+        error.value = ""
+      }, 5000);
+
+    } else {
+      datostalonario.value[index].vrifa = vrifa.value;
+      datostalonario.value[index].vboleta = vboleta.value;
+      datostalonario.value[index].loterias = loterias.value;
+      datostalonario.value[index].fecha = fecha.value;
+
+      edit = true;
+      limpiar();
+      modal_intro.value = false;
+    }
   }
+
 }
 
-function actualizarInformacionTalonario() {
-  
-  talonario.value = {
-    vrifa: formatCurrency(vrifa.value),
-    vboleta: formatCurrency(vboleta.value),
-    loterias: loterias.value,
+
+function agregar() {
+  const talonario = {
+    vrifa: vrifa.value,
+    vboleta: vboleta.value, loterias: loterias.value,
     fecha: fecha.value,
   };
+  datostalonario.value.push(talonario);
+  limpiar()
 }
 
-function form() {
-  const registrodatos = {
-    vrifa: formatCurrency(vrifa.value),
-    vboleta: formatCurrency(vboleta.value),
-    loterias: loterias.value,
-    fecha: fecha.value,
-  }
 
-  datostalonario.value.push(registrodatos)
+function editar(item, i) {
+  console.log(item);
+  console.log(i);
+  vrifa.value = item.vrifa;
+  vboleta.value = item.vboleta;
+  loterias.value = item.loterias;
+  fecha.value = item.fecha;
+  edit = false;
+  index = i;
+  modal_intro.value = true;
 }
 
 function limpiar() {
