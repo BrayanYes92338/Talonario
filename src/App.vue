@@ -140,19 +140,51 @@
       <div class="modal fade" id="participante" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-bottom">
           <div class="modal-content">
-            <div class="modal-header ">
-              <h1 class="modal-title fs-5 titulo-datos-boleta" id="exampleModalLabel2">Participante</h1>
+            <div class="modal-header  encabezado">
+              <h1 class="modal-title fs-5 titulo-datos-boleta titulo4" id="exampleModalLabel2">Participante</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+              <div class="cuerpo">
+                <div class="nombre_cliente">
+                  <i class="fa fa-user  icon1"></i>
+                  <div class="c1" >
+                    <h6 class="mini" >Nombre:</h6>
+                    <span>{{ nombreP }}</span>
+                  </div>
+                </div>
+                <div class="direccion_cliente">
+                  <i class="fa fa-home icon4"></i>
+                  <div class="c1">
 
-              <span>{{ nombreP }}</span>
-              <span>{{ direccionP }}</span>
-              <span>{{ telefonoP }}</span>
-              <span>{{ fechaP}}</span>
-              <span v-if="estado === 1">Sin Pagar</span>
-              <span v-if="estado === 2">Pagado</span>
-              <span v-if="estado === 3">Ganador</span>
+                    <h6 class="mini">Dirección:</h6>
+                    <span>{{ direccionP }}</span>
+                  </div>
+                </div>
+                <div class="telefono_cliente">
+                  <i class="fa fa-phone icon2"></i>
+                  <div class="c1">
+                    <h6 class="mini">Telefono:</h6>
+                    <span>{{ telefonoP }}</span>
+                  </div>
+                </div>
+                <div class="fechas_cliente">
+                  <i class="fa fa-calendar icon3"></i>
+                  <div class="c1">
+                    <h6 class="mini">Fecha:</h6>
+                    <span>{{ fechaP }}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="estados">
+                <i class="fa fa-list icon5"></i>
+                <div class="c1">
+                  <h6 class="mini">Estado:</h6>
+                  <span v-if="estado === 1">Sin Pagar</span>
+                  <span v-if="estado === 2">Pagado</span>
+                  <span v-if="estado === 3">Ganador</span>
+                </div>
+              </div>
 
             </div>
           </div>
@@ -189,11 +221,11 @@ let direccionC = ref("")
 let telefonoC = ref("")
 let fechaC = ref("")
 let estadoC = ref("");
-
 let nombreP = ref("")
 let direccionP = ref("")
 let telefonoP = ref("")
 let fechaP = ref("")
+let divaparecer = ref(false);
 
 
 

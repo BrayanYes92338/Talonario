@@ -73,7 +73,7 @@ body {
   border: solid 2px gray;
   background-color: white;
   width: 380px;
-  height: 600px;
+  height: 620px;
   border-radius: 20px;
   z-index: 3;
 }
@@ -107,7 +107,7 @@ select {
 }
 
 .buttonr {
-  margin-top: 20px;
+  margin-top: 8px;
   background-color: #014BAE;
   color: white;
   padding: 14px 14px;
@@ -233,6 +233,87 @@ h3 {
 .titulo-datos-boleta {
   margin-left: 80px;
 
+}
+
+.encabezado{
+  background: #014BAE;
+  color: white;
+  text-align: center;
+  
+}
+
+.titulo4{
+font-weight: bolder;
+}
+
+.cuerpo{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 26px;
+}
+
+.btn-close{
+color: white;
+}
+
+.mini{
+  font-weight: bolder;
+}
+
+.icon1{
+  font-size: 40px;
+  color: #FB6A00;
+}
+
+.icon2{
+  font-size: 40px;
+  color: #F1463F;
+
+}
+
+.icon4{
+  font-size: 40px;
+  color: #4EB05B;
+
+}
+
+.icon3{
+  color: #4EB05B;
+  font-size: 40px;
+}
+
+.icon5{
+  color: #5D6395;
+  font-size: 40px;
+}
+
+.c1{
+  margin-left: 15px;
+  padding: 8px 8px;
+}
+
+.nombre_cliente{
+  display: flex;
+}
+
+.direccion_cliente{
+  display: flex;
+}
+
+.telefono_cliente{
+  display: flex;
+}
+
+.fechas_cliente{
+  display: flex;
+
+}
+
+.estados{
+ display: flex;
+  place-content: center;
+  align-items: center;
+text-align: center;
 }
 
 .contenido {
