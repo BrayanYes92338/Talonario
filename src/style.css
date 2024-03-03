@@ -13,7 +13,6 @@ body {
 }
 
 .header {
-  background-color: #014BAE;
   height: 80px;
   position: fixed;
   width: 100%;
@@ -22,7 +21,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 
 }
 
@@ -444,9 +443,10 @@ thead {
 
 .cont-temas {
   background-color: white;
-  width: 920px;
-  height: 500px;
+  width: 940px;
+  height: 530px;
   border-radius: 18px;
+  overflow-y: auto;
 }
 
 
@@ -525,6 +525,8 @@ thead {
 }
 
 
+
+
 .bordercito{
   border-radius: 10px;
 }
@@ -539,12 +541,15 @@ thead {
   text-align: center;
 }
 
+.colores_footer{
+  margin-bottom: 10px;
+}
 
 .botones{
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   justify-items: center;
-  margin-top: 20px;
+ margin-bottom: 30px;
 }
 
 .btn-save{

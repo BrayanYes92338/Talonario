@@ -1,9 +1,9 @@
 <template>
   <div>
-    <header class="header">
-      <h2 class="titulo-header">TALONARIO</h2>
-    </header>
-    <main>
+    <header class="header" :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+  <h2 class="titulo-header">TALONARIO</h2>
+</header>
+    <main >
       <div class="modal-intro" v-if="modal_intro">
         <div class="intro">
           <div class="color-titulo">
@@ -241,42 +241,73 @@
                 </div>
                 <div class="cont_color_header">
                   <div class="cont_header_amarillo bordercito">
-                    <input type="radio" name="color" id="color_amarillo">
+                    <input type="radio" name="color" value="1" v-model.number="colorheader" id="color_amarillo">
                     <div class="cont-color">
                       <label for="color_amarillo">Color Amarillo</label>
                       <div class="color amarillo"></div>
                     </div>
                   </div>
                   <div class="cont_header_verde bordercito">
-                    <input type="radio" name="color" id="color_verde">
+                    <input type="radio" name="color" value="2" v-model="colorheader" id="color_verde">
                     <div class="cont-color">
-                    <label for="color_verde">Color Verde</label>
-                    <div class="color verde"></div>
-                  </div>
+                      <label for="color_verde">Color Verde</label>
+                      <div class="color verde"></div>
+                    </div>
                   </div>
                   <div class="cont_header_rosa bordercito">
-                    <input type="radio" name="color" id="color_rojo">
+                    <input type="radio" name="color" value="3" v-model="colorheader" id="color_rojo">
                     <div class="cont-color">
-                    <label for="color_rojo">Color Rosa</label>
-                    <div class="color rosa"></div>
-                  </div>
+                      <label for="color_rojo">Color Rosa</label>
+                      <div class="color rosa"></div>
+                    </div>
                   </div>
                   <div class="cont_header_naranja bordercito">
-                    <input type="radio" name="color" id="color_morado">
+                    <input type="radio" name="color" value="4" v-model="colorheader" id="color_naranja">
                     <div class="cont-color">
-                    <label for="color_morado">Color Naranja</label>
-                    <div class="color naranja"></div>
-                  </div>
+                      <label for="color_morado">Color Naranja</label>
+                      <div class="color naranja"></div>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div class="colores_body"></div>
-              <div class="colores_footer"></div>
+              <div class="colores_footer">
+                <div class="titulo_temas2">
+                  <h2>Colores Footer</h2>
+                </div>
+                <div class="cont_color_header">
+                  <div class="cont_header_amarillo bordercito">
+                    <input type="radio" name="color" value="1" v-model="colorfooter" id="color_amarillo">
+                    <div class="cont-color">
+                      <label for="color_amarillo">Color Amarillo</label>
+                      <div class="color amarillo"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_verde bordercito">
+                    <input type="radio" name="color" value="2" v-model="colorfooter" id="color_verde">
+                    <div class="cont-color">
+                      <label for="color_verde">Color Verde</label>
+                      <div class="color verde"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_rosa bordercito">
+                    <input type="radio" name="color" value="3" v-model="colorfooter" id="color_rojo">
+                    <div class="cont-color">
+                      <label for="color_rojo">Color Rosa</label>
+                      <div class="color rosa"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_naranja bordercito">
+                    <input type="radio" name="color" value="4" v-model="colorfooter" id="color_naranja">
+                    <div class="cont-color">
+                      <label for="color_morado">Color Naranja</label>
+                      <div class="color naranja"></div>
+                    </div>
+                  </div>
+                </div></div>
               <div class="colores_pestañas"></div>
 
               <div class="botones">
-                <button class ="btn-save">Guardar</button>
-                <button class="btn-color">Colores por Defecto</button>
+                <button class="btn-color" @click="restaurarColor()">Colores por Defecto</button>
                 <button class="btn-closed" @click="cerrar()">Cerrar</button>
               </div>
 
@@ -284,9 +315,8 @@
           </div>
         </div>
       </div>
-
     </main>
-    <footer class="footer">
+    <footer class="footer" :style="{ backgroundColor: colorfooter === '1' ? '#F1B300' : colorfooter === '2' ? '#78A036' : colorfooter === '3' ? '#BD5288' : colorfooter === '4' ? '#F6B363' : '#014BAE' }">
       <div>
         <p>Copyright ©2024. Todos los derechos reservados.</p>
       </div>
@@ -301,6 +331,9 @@ import autoTable from 'jspdf-autotable';
 
 let registros = ref([]);
 let arr = ref([]);
+let colores = ref([]);
+let colorheader = ref("");
+let colorfooter = ref("");
 let datostalonario = ref([]);
 let modal_intro = ref(true);
 let vrifa = ref("");
@@ -311,22 +344,35 @@ let fecha = ref("");
 let error = ref("");
 let edit = true;
 let index = null;
-let i = ref(0)
-let numsele = ref(0)
-let estado = ref(0)
-let nombreC = ref("")
-let direccionC = ref("")
-let telefonoC = ref("")
-let fechaC = ref("")
+let i = ref(0);
+let numsele = ref(0);
+let estado = ref(0);
+let nombreC = ref("");
+let direccionC = ref("");
+let telefonoC = ref("");
+let fechaC = ref("");
 let estadoC = ref("");
-let nombreP = ref("")
-let direccionP = ref("")
-let telefonoP = ref("")
-let fechaP = ref("")
+let nombreP = ref("");
+let direccionP = ref("");
+let telefonoP = ref("");
+let fechaP = ref("");
 let divaparecer = ref(false);
-let divaparecer2 = ref(false)
-let error2 = ref("")
+let divaparecer2 = ref(false);
+let error2 = ref("");
 
+function restaurarColor() {
+ const color ={
+    colorheader: colorheader.value,
+    colorfooter: colorfooter.value,
+
+  
+ }
+  colores.value.push(color)
+  colorheader.value = ""
+  colorfooter.value = ""
+
+  
+}
 
 function download() {
   const doc = new jsPDF('landscape');
@@ -334,7 +380,7 @@ function download() {
   let tableElement = document.getElementById('tab');
   let rows = tableElement.querySelectorAll('tr');
 
-  // Empezamos desde i = 1 para omitir el primer tr
+
   for (let i = 1; i < rows.length; i++) {
     let row = rows[i];
     let cols = row.querySelectorAll('td');
