@@ -57,15 +57,12 @@
             </div>
           </div>
         </div>
-
-
-
         <div class="cont-acciones">
           <h3 class="titulo-info">Acciones</h3>
           <div class="cuerpo-acciones">
-            <button class="btn-acciones"><i class="fa fa-list-ul"></i>LISTAR BOLETAS</button>
-            <button class="btn-acciones"><i class="fa fa-cogs"></i>PERSONALIZAR</button>
-            <button class="btn-acciones"><i class="fa fa-download"></i>GENERAR ARCHIVO</button>
+            <button class="btn-acciones" @click="listardatos()"><i class="fa fa-list-ul"></i>LISTAR BOLETAS</button>
+            <button class="btn-acciones" @click="aparecerpersonalizar()"><i class="fa fa-cogs"></i>PERSONALIZAR</button>
+
           </div>
         </div>
       </div>
@@ -122,7 +119,8 @@
             <div class="modal-body">
               <input type="text" placeholder="Ingrese nombre del comprador" v-model="nombreC">
               <input type="text" placeholder="Ingrese direccion del comprador" v-model="direccionC">
-              <input type="number" placeholder="Ingrese numero telefonico " v-model="telefonoC">
+              <input type="tel" required pattern="[0-9]+" maxlength="10" placeholder="Ingrese numero telefonico "
+                v-model="telefonoC">
               <input type="date" v-model="fechaC">
               <select v-model="estadoC">
                 <option disabled selected hidden value="">Seleccione el estado de la boleta</option>
@@ -130,8 +128,8 @@
                 <option value="2">Pagado</option>
                 <option value="3">Ganador</option>
               </select>
-              <button class="btn btn-primary botoncito" @click="regBoletas()">Registrar</button>
-
+              <p v-if="error2 != ''">{{ error2 }}</p>
+              <button class="btn btn-primary botoncito" @click="validarcliente()">Registrar</button>
             </div>
           </div>
         </div>
@@ -148,8 +146,8 @@
               <div class="cuerpo">
                 <div class="nombre_cliente">
                   <i class="fa fa-user  icon1"></i>
-                  <div class="c1" >
-                    <h6 class="mini" >Nombre:</h6>
+                  <div class="c1">
+                    <h6 class="mini">Nombre:</h6>
                     <span>{{ nombreP }}</span>
                   </div>
                 </div>
@@ -190,6 +188,103 @@
           </div>
         </div>
       </div>
+      <div class="listar-boletas caja" v-if="divaparecer2">
+        <div class="cont-listar">
+          <div class="cont-conted">
+            <div class="cont-listado-titulo">
+              <span class="closeicon " @click="cerrar2()"><i class="fa fa-times"></i></span>
+              <h2>Listado de Boleta</h2>
+            </div>
+            <div class="cont-listado-cuerpo">
+              <table id="tab">
+                <thead>
+                  <tr>
+                    <th>Nombre Comprador</th>
+                    <th>Dirrecion</th>
+                    <th>Numero Telefonico</th>
+                    <th>Fecha Compra Boleta</th>
+                    <th>Estado Boleta</th>
+                    <th>N. Boleta </th>
+                    <th>Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(item, i) in registros" :key="i">
+                    <td>{{ item.nombre }}</td>
+                    <td>{{ item.direccion }}</td>
+                    <td>{{ item.telefono }}</td>
+                    <td>{{ item.fecha }}</td>
+                    <td>{{ item.estadoTexto }}</td>
+                    <td>{{ item.boleta }}</td>
+                    <td><button class="btn-eliminar" @click="eliminar(i)"> <i class="fa fa-trash"></i></button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="contenido2">
+              <button class="btn-acciones" @click="download()"><i class="fa fa-download"></i>GENERAR ARCHIVO</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-temas" v-if="divaparecer">
+        <div class="cont-temas">
+          <div class="cont-conte2">
+            <div class="titulo_temas">
+              <span class="closeicon " @click="cerrar()"><i class="fa fa-times"></i></span>
+              <h2>Temas Para El Talonario</h2>
+            </div>
+            <div class="cont-cuerpo">
+              <div class="colores_header">
+                <div class="titulo_temas2">
+                  <h2>Colores Header</h2>
+                </div>
+                <div class="cont_color_header">
+                  <div class="cont_header_amarillo bordercito">
+                    <input type="radio" name="color" id="color_amarillo">
+                    <div class="cont-color">
+                      <label for="color_amarillo">Color Amarillo</label>
+                      <div class="color amarillo"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_verde bordercito">
+                    <input type="radio" name="color" id="color_verde">
+                    <div class="cont-color">
+                    <label for="color_verde">Color Verde</label>
+                    <div class="color verde"></div>
+                  </div>
+                  </div>
+                  <div class="cont_header_rosa bordercito">
+                    <input type="radio" name="color" id="color_rojo">
+                    <div class="cont-color">
+                    <label for="color_rojo">Color Rosa</label>
+                    <div class="color rosa"></div>
+                  </div>
+                  </div>
+                  <div class="cont_header_naranja bordercito">
+                    <input type="radio" name="color" id="color_morado">
+                    <div class="cont-color">
+                    <label for="color_morado">Color Naranja</label>
+                    <div class="color naranja"></div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+              <div class="colores_body"></div>
+              <div class="colores_footer"></div>
+              <div class="colores_pestañas"></div>
+
+              <div class="botones">
+                <button class ="btn-save">Guardar</button>
+                <button class="btn-color">Colores por Defecto</button>
+                <button class="btn-closed" @click="cerrar()">Cerrar</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
     </main>
     <footer class="footer">
       <div>
@@ -201,6 +296,9 @@
 
 <script setup>
 import { ref } from "vue"
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+
 let registros = ref([]);
 let arr = ref([]);
 let datostalonario = ref([]);
@@ -226,17 +324,119 @@ let direccionP = ref("")
 let telefonoP = ref("")
 let fechaP = ref("")
 let divaparecer = ref(false);
+let divaparecer2 = ref(false)
+let error2 = ref("")
 
+
+function download() {
+  const doc = new jsPDF('landscape');
+  let bodyData = [];
+  let tableElement = document.getElementById('tab');
+  let rows = tableElement.querySelectorAll('tr');
+
+  // Empezamos desde i = 1 para omitir el primer tr
+  for (let i = 1; i < rows.length; i++) {
+    let row = rows[i];
+    let cols = row.querySelectorAll('td');
+    let rowData = [];
+    for (let j = 0; j < cols.length; j++) {
+      let col = cols[j];
+      rowData.push(col.innerText);
+    }
+    bodyData.push(rowData);
+  }
+
+  let headers = ['Nombre Comprador', 'Direccion', 'Numero Telefonico', 'Fecha Compra Boleta', 'Estado Boleta', 'N. Boleta'];
+  autoTable(doc, {
+    head: [headers],
+    body: bodyData,
+  });
+  doc.save('Registro.pdf');
+}
+
+
+function validarcliente() {
+
+  let texto = /^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ\s]+$/;
+  let fechajuego = datostalonario.value[datostalonario.value.length - 1].fecha;
+  let fechacompra = fechaC.value
+
+  if (nombreC.value == "") {
+    error2.value = "El nombre del comprador es requerido"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+
+  } else if (!texto.test(nombreC.value)) {
+    error2.value = "El campo de nombre comprador no puede llevar numeros"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (direccionC.value == "") {
+    error2.value = "La dirrecion del comprador es requerida"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (telefonoC.value == "") {
+    error2.value = "El telefono del comprador es requerido"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (isNaN(telefonoC.value) == true) {
+    error2.value = "El campo de telefono del comprador debe ser numerico"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (telefonoC.value.length != 10) {
+    error2.value = "El campo de telefono debe tener al menos 10 numeros"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (fechaC.value == "") {
+    error2.value = "La fecha de compra de la boleta es requerido"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (fechacompra > fechajuego) {
+    error2.value = "No se puede agregar una fecha de compra que sea superiror a la fecha de juego"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else if (estadoC.value == "") {
+    error2.value = "El estado de la compra de la boleta es requerido"
+    setTimeout(() => {
+      error2.value = ""
+    }, 5000);
+  } else {
+    regBoletas()
+    limpiar2()
+  }
+
+
+}
 
 
 function regBoletas() {
+
+  const estado = parseInt(estadoC.value);
+  let estadoTexto = "";
+
+  if (estado === 1) {
+    estadoTexto = "Apartado";
+  } else if (estado === 2) {
+    estadoTexto = "Pagado";
+  } else if (estado === 3) {
+    estadoTexto = "Ganador";
+  }
 
   const cliente = {
     nombre: nombreC.value,
     direccion: direccionC.value,
     telefono: telefonoC.value,
     fecha: fechaC.value,
-    estado: parseInt(estadoC.value)
+    estado: parseInt(estadoC.value),
+    estadoTexto: estadoTexto,
+    boleta: numsele.value
   }
 
   registros.value.push(cliente)
@@ -244,6 +444,26 @@ function regBoletas() {
   arr.value[i.value].comprador = cliente
   console.log(arr.value);
   arr.value[i.value].estado = parseInt(estadoC.value)
+
+
+}
+
+function aparecerpersonalizar() {
+  divaparecer.value = true
+
+}
+
+function cerrar() {
+  divaparecer.value = false
+
+}
+
+function listardatos() {
+  divaparecer2.value = true
+}
+
+function cerrar2() {
+  divaparecer2.value = false
 
 }
 
@@ -323,7 +543,7 @@ function validar() {
       setTimeout(() => {
         error.value = ""
       }, 5000);
-    } else if (fecha_actual > fecha_select) {
+    } else if (fecha_actual >= fecha_select) {
       error.value = "La fecha del sorteo no puede ser menor a la fecha actual"
       setTimeout(() => {
         error.value = ""
@@ -447,5 +667,17 @@ function limpiar() {
 
 }
 
+function limpiar2() {
+  nombreC.value = "";
+  direccionC.value = "";
+  telefonoC.value = "";
+  fechaC.value = "";
+  estadoC.value = "";
+
+}
+
+function eliminar(i) {
+  registros.value.splice(i, 1)
+}
 
 </script>
