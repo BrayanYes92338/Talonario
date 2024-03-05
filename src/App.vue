@@ -25,7 +25,6 @@
               <option value="1000">0-999</option>
             </select>
             <input type="date" placeholder="Fecha de sorteo" v-model="fecha">
-            <p class="error" v-if="error != ''">{{ error }}</p>
             <button class="buttonr" @click="validar()">Guardar</button>
           </div>
 
@@ -63,6 +62,7 @@
             <button class="btn-acciones" @click="listardatos()"><i class="fa fa-list-ul"></i>LISTAR BOLETAS</button>
             <button class="btn-acciones" @click="aparecerpersonalizar()"><i class="fa fa-cogs"></i>PERSONALIZAR</button>
 
+            <button class="btn-acciones" @click="Ganador()"><i class="fa fa-trophy"></i>GANADOR</button>
           </div>
         </div>
       </div>
@@ -341,7 +341,6 @@ let vboleta = ref("");
 let loterias = ref("");
 let cantboletas = ref("");
 let fecha = ref("");
-let error = ref("");
 let edit = true;
 let index = null;
 let i = ref(0);
@@ -359,6 +358,13 @@ let fechaP = ref("");
 let divaparecer = ref(false);
 let divaparecer2 = ref(false);
 let error2 = ref("");
+
+
+function Ganador() {
+  const NGanador = Math.floor(Math.random() * 100) + 1;
+  Swal.fire("El número ganador es: " + NGanador);
+}
+
 
 function restaurarColor() {
  const color ={
@@ -408,54 +414,79 @@ function validarcliente() {
   let fechacompra = fechaC.value
 
   if (nombreC.value == "") {
-    error2.value = "El nombre del comprador es requerido"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El nombre del comprador es requerido",
+      timer: 3500
+    });
 
   } else if (!texto.test(nombreC.value)) {
-    error2.value = "El campo de nombre comprador no puede llevar numeros"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de nombre comprador no puede llevar numeros",
+      timer: 3500
+    });
   } else if (direccionC.value == "") {
-    error2.value = "La dirrecion del comprador es requerida"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+  Swal.fire({
+  icon: "error",
+  title: "Oops...",
+  text: "La dirrecion del comprador es requerida",
+  timer: 3500
+});
   } else if (telefonoC.value == "") {
-    error2.value = "El telefono del comprador es requerido"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El telefono del comprador es requerido",
+      timer: 3500
+    });
   } else if (isNaN(telefonoC.value) == true) {
-    error2.value = "El campo de telefono del comprador debe ser numerico"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de telefono del comprador debe ser numerico",
+      timer: 3500
+    });
   } else if (telefonoC.value.length != 10) {
-    error2.value = "El campo de telefono debe tener al menos 10 numeros"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "El campo de telefono debe tener al menos 10 numeros",
+    timer: 3500
+    });
   } else if (fechaC.value == "") {
-    error2.value = "La fecha de compra de la boleta es requerido"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "La fecha de compra de la boleta es requerido",
+    timer: 3500
+    });
   } else if (fechacompra > fechajuego) {
-    error2.value = "No se puede agregar una fecha de compra que sea superiror a la fecha de juego"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "No se puede agregar una fecha de compra que sea superiror a la fecha de juego",
+    timer: 3500
+    });
   } else if (estadoC.value == "") {
-    error2.value = "El estado de la compra de la boleta es requerido"
-    setTimeout(() => {
-      error2.value = ""
-    }, 5000);
+    Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "El estado de la compra de la boleta es requerido",
+    timer: 3500
+    });
   } else {
     regBoletas()
     limpiar2()
+
+  Swal.fire({
+  icon: "success",
+  title: "Boleta vendida",
+  showConfirmButton: false,
+  timer: 1500
+});
   }
 
 
@@ -542,117 +573,161 @@ function validar() {
 
 
   if (edit == true) {
-    if (vboleta.value == "") {
-      error.value = "El valor de la boleta es requerido"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-    } else if (vboleta.value <= 0) {
-      error.value = "El valor de la boleta no puede ser menor o igual a 0"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-    } else if (isNaN(vboleta.value)) {
-      error.value = "El valor de la boleta debe ser numerico"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-    } else if (vrifa.value == "") {
-      error.value = "El valor de la rifa es requerido"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+    if (vrifa.value == "") {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor del premio no puede estar vacio",
+      timer: 3500
+    });
     } else if (vrifa.value <= 0) {
-      error.value = "El valor de la rifa no puede ser menor o igual a 0"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor del premio no puede menor o igual a 0",
+      timer: 3500
+      });
+    } else if (isNaN(vrifa.value)) {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor del premio debe ser numerico",
+      timer: 3500
+    });
+    } else if (vboleta.value == "") {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor de la boleta no puede estar vacio",
+      timer: 3500
+    });
+    } else if (vboleta.value <= 0) {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor de la boleta no puede ser menor o igual a 0",
+      timer: 3500
+    });
     }
-    else if (isNaN(vrifa.value)) {
-      error.value = "El valor de la rifa debe ser numerico"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-
+    else if (isNaN(vboleta.value)) {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor de la boleta debe ser numerico",
+      timer: 3500
+    });
     } else if (loterias.value == "") {
-      error.value = "Seleccione la loteria que quieras jugar"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Seleccione la loteria que quieras jugar",
+      timer: 3500
+    });
     } else if (cantboletas.value == "") {
-      error.value = "Seleccione la cantidad de boletas"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Seleccione la cantidad de boletas",
+      timer: 3500
+    });
     } else if (fecha.value == "") {
-      error.value = "Seleccione la fecha del sorteo"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Seleccione la fecha del sorteo",
+      timer: 3500
+    });
     } else if (fecha_actual >= fecha_select) {
-      error.value = "La fecha del sorteo no puede ser menor a la fecha actual"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La fecha del sorteo no puede ser menor a la fecha actual",
+      timer: 3500
+    });
     } else {
-      agregar()
+      Swal.fire({
+      icon: "success",
+      title: "Datos de loteria registrados",
+      showConfirmButton: false,
+      timer: 3500
+    });
 
-      modal_intro.value = false
+    agregar()
+
+    modal_intro.value = false
     }
   } else {
-    if (vboleta.value == "") {
-      error.value = "El valor de la boleta es requerido"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-    } else if (vboleta.value <= 0) {
-      error.value = "El valor de la boleta no puede ser menor o igual a 0"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-    } else if (isNaN(vboleta.value)) {
-      error.value = "El valor de la boleta debe ser numerico"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-    } else if (vrifa.value == "") {
-      error.value = "El valor de la rifa es requerido"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+    if (vrifa.value == "") {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor del premio no puede estar vacio",
+      timer: 3500
+    });
     } else if (vrifa.value <= 0) {
-      error.value = "El valor de la rifa no puede ser menor o igual a 0"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor del premio no puede menor o igual a 0",
+      timer: 3500
+      });
+    } else if (isNaN(vrifa.value)) {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor del premio debe ser numerico",
+      timer: 3500
+    });
+    } else if (vboleta.value == "") {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor de la boleta no puede estar vacio",
+      timer: 3500
+    });
+    } else if (vboleta.value <= 0) {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor de la boleta no puede ser menor o igual a 0",
+      timer: 3500
+    });
     }
-    else if (isNaN(vrifa.value)) {
-      error.value = "El valor de la rifa debe ser numerico"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
-
+    else if (isNaN(vboleta.value)) {
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El valor de la boleta debe ser numerico",
+      timer: 3500
+    });
     } else if (loterias.value == "") {
-      error.value = "Seleccione la loteria que quieras jugar"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Seleccione la loteria que quieras jugar",
+      timer: 3500
+    });
     } else if (cantboletas.value == "") {
-      error.value = "Seleccione la cantidad de boletas"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Seleccione la cantidad de boletas",
+      timer: 3500
+    });
     } else if (fecha.value == "") {
-      error.value = "Seleccione la fecha del sorteo"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Seleccione la fecha del sorteo",
+      timer: 3500
+    });
     } else if (fecha_actual > fecha_select) {
-      error.value = "La fecha del sorteo no puede ser menor a la fecha actual"
-      setTimeout(() => {
-        error.value = ""
-      }, 5000);
+      Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La fecha no debe ser menor a la fecha actual",
+      timer: 3500
+    });
 
     } else {
       datostalonario.value[index].vrifa = vrifa.value;
@@ -664,6 +739,12 @@ function validar() {
       edit = true;
       limpiar();
       modal_intro.value = false;
+      Swal.fire({
+      icon: "success",
+      title: "Datos de loteria editados",
+      showConfirmButton: false,
+      timer: 3500
+    });
     }
   }
 

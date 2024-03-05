@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@sweetalert2/themes": "^5.0.16",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.8.2",
     "vue": "^3.4.15"
