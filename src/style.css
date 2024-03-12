@@ -139,7 +139,9 @@ select {
 }
 
 .icon {
-  padding: 15px 8px;
+  padding: 12px 8px;
+  font-size: 22px;
+  font-weight: bolder;
 
 }
 
@@ -319,7 +321,7 @@ h3 {
   border: solid 2px gray;
   background-color: white;
   width: 380px;
-  height: 650px;
+  height: 510px;
   border-radius: 8px;
   padding: 20px 20px;
 }
@@ -542,14 +544,15 @@ thead {
 }
 
 .colores_footer{
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 .botones{
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
- margin-bottom: 30px;
+ margin-top: 20px;
+ padding: 20px;
 }
 
 .btn-save{

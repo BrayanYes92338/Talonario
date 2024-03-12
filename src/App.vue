@@ -1,12 +1,13 @@
 <template>
   <div>
-    <header class="header" :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
-  <h2 class="titulo-header">TALONARIO</h2>
-</header>
-    <main >
+    <header class="header"
+      :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+      <h2 class="titulo-header">TALONARIO</h2>
+    </header>
+    <main>
       <div class="modal-intro" v-if="modal_intro">
         <div class="intro">
-          <div class="color-titulo">
+          <div class="color-titulo"  :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
             <h2 class="titulo-info-talonario">CONFIGURA TU TALONARIO</h2>
           </div>
           <div class="input-group">
@@ -25,7 +26,7 @@
               <option value="1000">0-999</option>
             </select>
             <input type="date" placeholder="Fecha de sorteo" v-model="fecha">
-            <button class="buttonr" @click="validar()">Guardar</button>
+            <button class="buttonr" @click="validar()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Guardar</button>
           </div>
 
         </div>
@@ -40,7 +41,7 @@
             <p class="icon">🗓️<span>{{ item.fecha }}</span></p>
             <h6></h6>
             <div class="boton">
-              <button class="btn-editar" @click="editar(item, i)"> Editar<i class="fa fa-edit"></i></button>
+              <button class="btn-editar" @click="editar(item, i)" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"> Editar<i class="fa fa-edit"></i></button>
             </div>
           </div>
         </div>
@@ -59,10 +60,9 @@
         <div class="cont-acciones">
           <h3 class="titulo-info">Acciones</h3>
           <div class="cuerpo-acciones">
-            <button class="btn-acciones" @click="listardatos()"><i class="fa fa-list-ul"></i>LISTAR BOLETAS</button>
-            <button class="btn-acciones" @click="aparecerpersonalizar()"><i class="fa fa-cogs"></i>PERSONALIZAR</button>
-
-            <button class="btn-acciones" @click="Ganador()"><i class="fa fa-trophy"></i>GANADOR</button>
+            <button class="btn-acciones" @click="listardatos()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i class="fa fa-list-ul" ></i>LISTAR BOLETAS</button>
+            <button class="btn-acciones" @click="aparecerpersonalizar()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i class="fa fa-cogs"></i>PERSONALIZAR</button>
+            <button class="btn-acciones" @click="Ganador()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }" ><i class="fa fa-trophy"></i>GANADOR</button>
           </div>
         </div>
       </div>
@@ -85,7 +85,7 @@
                 </h6>
               </div>
               <div v-if="estado === 2">
-                <h6 class="rowc">Estado: Pagado <div class="color" style="background-color: #0090A9;"></div>
+                <h6 class="rowc">Estado: Pagado <div class="color" style="background-color: #18BF67;"></div>
                 </h6>
               </div>
               <div v-if="estado === 3">
@@ -121,7 +121,6 @@
               <input type="text" placeholder="Ingrese direccion del comprador" v-model="direccionC">
               <input type="tel" required pattern="[0-9]+" maxlength="10" placeholder="Ingrese numero telefonico "
                 v-model="telefonoC">
-              <input type="date" v-model="fechaC">
               <select v-model="estadoC">
                 <option disabled selected hidden value="">Seleccione el estado de la boleta</option>
                 <option value="1">Apartado</option>
@@ -138,7 +137,7 @@
       <div class="modal fade" id="participante" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-bottom">
           <div class="modal-content">
-            <div class="modal-header  encabezado">
+            <div class="modal-header  encabezado"  :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
               <h1 class="modal-title fs-5 titulo-datos-boleta titulo4" id="exampleModalLabel2">Participante</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -191,7 +190,7 @@
       <div class="listar-boletas caja" v-if="divaparecer2">
         <div class="cont-listar">
           <div class="cont-conted">
-            <div class="cont-listado-titulo">
+            <div class="cont-listado-titulo"  :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
               <span class="closeicon " @click="cerrar2()"><i class="fa fa-times"></i></span>
               <h2>Listado de Boleta</h2>
             </div>
@@ -222,7 +221,7 @@
               </table>
             </div>
             <div class="contenido2">
-              <button class="btn-acciones" @click="download()"><i class="fa fa-download"></i>GENERAR ARCHIVO</button>
+              <button class="btn-acciones" @click="download()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i class="fa fa-download"></i>GENERAR ARCHIVO</button>
             </div>
           </div>
         </div>
@@ -230,14 +229,14 @@
       <div class="modal-temas" v-if="divaparecer">
         <div class="cont-temas">
           <div class="cont-conte2">
-            <div class="titulo_temas">
+            <div class="titulo_temas" :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
               <span class="closeicon " @click="cerrar()"><i class="fa fa-times"></i></span>
               <h2>Temas Para El Talonario</h2>
             </div>
             <div class="cont-cuerpo">
               <div class="colores_header">
                 <div class="titulo_temas2">
-                  <h2>Colores Header</h2>
+                  <h2>Colores Header o Encabezados</h2>
                 </div>
                 <div class="cont_color_header">
                   <div class="cont_header_amarillo bordercito">
@@ -303,9 +302,43 @@
                       <div class="color naranja"></div>
                     </div>
                   </div>
-                </div></div>
-              <div class="colores_pestañas"></div>
-
+                </div>
+              </div>
+              <div class="colores_pestañas">
+                <div class="titulo_temas2">
+                  <h2>Colores Botones</h2>
+                </div>
+                <div class="cont_color_header">
+                  <div class="cont_header_amarillo bordercito">
+                    <input type="radio" name="color" value="1" v-model="colorbotones" id="color_amarillo">
+                    <div class="cont-color">
+                      <label for="color_amarillo">Color Amarillo</label>
+                      <div class="color amarillo"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_verde bordercito">
+                    <input type="radio" name="color" value="2" v-model="colorbotones" id="color_verde">
+                    <div class="cont-color">
+                      <label for="color_verde">Color Verde</label>
+                      <div class="color verde"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_rosa bordercito">
+                    <input type="radio" name="color" value="3" v-model="colorbotones" id="color_rojo">
+                    <div class="cont-color">
+                      <label for="color_rojo">Color Rosa</label>
+                      <div class="color rosa"></div>
+                    </div>
+                  </div>
+                  <div class="cont_header_naranja bordercito">
+                    <input type="radio" name="color" value="4" v-model="colorbotones" id="color_naranja">
+                    <div class="cont-color">
+                      <label for="color_morado">Color Naranja</label>
+                      <div class="color naranja"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
               <div class="botones">
                 <button class="btn-color" @click="restaurarColor()">Colores por Defecto</button>
                 <button class="btn-closed" @click="cerrar()">Cerrar</button>
@@ -316,14 +349,14 @@
         </div>
       </div>
     </main>
-    <footer class="footer" :style="{ backgroundColor: colorfooter === '1' ? '#F1B300' : colorfooter === '2' ? '#78A036' : colorfooter === '3' ? '#BD5288' : colorfooter === '4' ? '#F6B363' : '#014BAE' }">
+    <footer class="footer"
+      :style="{ backgroundColor: colorfooter === '1' ? '#F1B300' : colorfooter === '2' ? '#78A036' : colorfooter === '3' ? '#BD5288' : colorfooter === '4' ? '#F6B363' : '#014BAE' }">
       <div>
         <p>Copyright ©2024. Todos los derechos reservados.</p>
       </div>
     </footer>
   </div>
 </template>
-
 <script setup>
 import { ref } from "vue"
 import jsPDF from 'jspdf';
@@ -334,6 +367,7 @@ let arr = ref([]);
 let colores = ref([]);
 let colorheader = ref("");
 let colorfooter = ref("");
+let colorbotones = ref("")
 let datostalonario = ref([]);
 let modal_intro = ref(true);
 let vrifa = ref("");
@@ -367,17 +401,18 @@ function Ganador() {
 
 
 function restaurarColor() {
- const color ={
+  const color = {
     colorheader: colorheader.value,
     colorfooter: colorfooter.value,
+    colorbotones: colorbotones.value
 
-  
- }
+  }
   colores.value.push(color)
   colorheader.value = ""
   colorfooter.value = ""
+  colorbotones.value = ""
 
-  
+
 }
 
 function download() {
@@ -411,7 +446,7 @@ function validarcliente() {
 
   let texto = /^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ\s]+$/;
   let fechajuego = datostalonario.value[datostalonario.value.length - 1].fecha;
-  let fechacompra = fechaC.value
+ 
 
   if (nombreC.value == "") {
     Swal.fire({
@@ -429,12 +464,12 @@ function validarcliente() {
       timer: 3500
     });
   } else if (direccionC.value == "") {
-  Swal.fire({
-  icon: "error",
-  title: "Oops...",
-  text: "La dirrecion del comprador es requerida",
-  timer: 3500
-});
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La dirrecion del comprador es requerida",
+      timer: 3500
+    });
   } else if (telefonoC.value == "") {
     Swal.fire({
       icon: "error",
@@ -451,42 +486,28 @@ function validarcliente() {
     });
   } else if (telefonoC.value.length != 10) {
     Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "El campo de telefono debe tener al menos 10 numeros",
-    timer: 3500
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de telefono debe tener al menos 10 numeros",
+      timer: 3500
     });
-  } else if (fechaC.value == "") {
+  }  else if (estadoC.value == "") {
     Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "La fecha de compra de la boleta es requerido",
-    timer: 3500
-    });
-  } else if (fechacompra > fechajuego) {
-    Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "No se puede agregar una fecha de compra que sea superiror a la fecha de juego",
-    timer: 3500
-    });
-  } else if (estadoC.value == "") {
-    Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "El estado de la compra de la boleta es requerido",
-    timer: 3500
+      icon: "error",
+      title: "Oops...",
+      text: "El estado de la compra de la boleta es requerido",
+      timer: 3500
     });
   } else {
     regBoletas()
     limpiar2()
 
-  Swal.fire({
-  icon: "success",
-  title: "Boleta vendida",
-  showConfirmButton: false,
-  timer: 1500
-});
+    Swal.fire({
+      icon: "success",
+      title: "Boleta vendida",
+      showConfirmButton: false,
+      timer: 1500
+    });
   }
 
 
@@ -510,7 +531,7 @@ function regBoletas() {
     nombre: nombreC.value,
     direccion: direccionC.value,
     telefono: telefonoC.value,
-    fecha: fechaC.value,
+    fecha: new Date().toISOString().split('T')[0],
     estado: parseInt(estadoC.value),
     estadoTexto: estadoTexto,
     boleta: numsele.value
@@ -575,159 +596,161 @@ function validar() {
   if (edit == true) {
     if (vrifa.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor del premio no puede estar vacio",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor del premio no puede estar vacio",
+        timer: 3500
+      });
     } else if (vrifa.value <= 0) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor del premio no puede menor o igual a 0",
-      timer: 3500
+        icon: "error",
+        title: "Oops...",
+        text: "El valor del premio no puede menor o igual a 0",
+        timer: 3500
       });
     } else if (isNaN(vrifa.value)) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor del premio debe ser numerico",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor del premio debe ser numerico",
+        timer: 3500
+      });
     } else if (vboleta.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor de la boleta no puede estar vacio",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta no puede estar vacio",
+        timer: 3500
+      });
     } else if (vboleta.value <= 0) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor de la boleta no puede ser menor o igual a 0",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta no puede ser menor o igual a 0",
+        timer: 3500
+      });
     }
     else if (isNaN(vboleta.value)) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor de la boleta debe ser numerico",
-      timer: 3500
-    });
-    } else if (loterias.value == "") {
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta debe ser numerico",
+        timer: 3500
+      });
+    }
+     else if (loterias.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Seleccione la loteria que quieras jugar",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "Seleccione la loteria que quieras jugar",
+        timer: 3500
+      });
     } else if (cantboletas.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Seleccione la cantidad de boletas",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "Seleccione la cantidad de boletas",
+        timer: 3500
+      });
     } else if (fecha.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Seleccione la fecha del sorteo",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "Seleccione la fecha del sorteo",
+        timer: 3500
+      });
     } else if (fecha_actual >= fecha_select) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "La fecha del sorteo no puede ser menor a la fecha actual",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "La fecha seleccionada no puede ser anterior o igual a la fecha actual, ni puede ser la fecha de mañana. Por favor, seleccione una fecha posterior",
+        timer: 5500
+      });
     } else {
       Swal.fire({
-      icon: "success",
-      title: "Datos de loteria registrados",
-      showConfirmButton: false,
-      timer: 3500
-    });
+        icon: "success",
+        title: "Datos de loteria registrados",
+        showConfirmButton: false,
+        timer: 3500
+      });
 
-    agregar()
+      agregar()
 
-    modal_intro.value = false
+      modal_intro.value = false
     }
   } else {
     if (vrifa.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor del premio no puede estar vacio",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor del premio no puede estar vacio",
+        timer: 3500
+      });
     } else if (vrifa.value <= 0) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor del premio no puede menor o igual a 0",
-      timer: 3500
+        icon: "error",
+        title: "Oops...",
+        text: "El valor del premio no puede menor o igual a 0",
+        timer: 3500
       });
     } else if (isNaN(vrifa.value)) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor del premio debe ser numerico",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor del premio debe ser numerico",
+        timer: 3500
+      });
     } else if (vboleta.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor de la boleta no puede estar vacio",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta no puede estar vacio",
+        timer: 3500
+      });
     } else if (vboleta.value <= 0) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor de la boleta no puede ser menor o igual a 0",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta no puede ser menor o igual a 0",
+        timer: 3500
+      });
+    } else if (isNaN(vboleta.value)) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta debe ser numerico",
+        timer: 3500
+      });
     }
-    else if (isNaN(vboleta.value)) {
+    else if (loterias.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "El valor de la boleta debe ser numerico",
-      timer: 3500
-    });
-    } else if (loterias.value == "") {
+        icon: "error",
+        title: "Oops...",
+        text: "Seleccione la loteria que quieras jugar",
+        timer: 3500
+      });
+    } 
+    else if (cantboletas.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Seleccione la loteria que quieras jugar",
-      timer: 3500
-    });
-    } else if (cantboletas.value == "") {
-      Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Seleccione la cantidad de boletas",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "Seleccione la cantidad de boletas",
+        timer: 3500
+      });
     } else if (fecha.value == "") {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Seleccione la fecha del sorteo",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "Seleccione la fecha del sorteo",
+        timer: 3500
+      });
     } else if (fecha_actual > fecha_select) {
       Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "La fecha no debe ser menor a la fecha actual",
-      timer: 3500
-    });
+        icon: "error",
+        title: "Oops...",
+        text: "La fecha seleccionada no puede ser anterior o igual a la fecha actual, ni puede ser la fecha de mañana. Por favor, seleccione una fecha posterior",
+        timer: 5500
+      });
 
     } else {
       datostalonario.value[index].vrifa = vrifa.value;
@@ -740,11 +763,11 @@ function validar() {
       limpiar();
       modal_intro.value = false;
       Swal.fire({
-      icon: "success",
-      title: "Datos de loteria editados",
-      showConfirmButton: false,
-      timer: 3500
-    });
+        icon: "success",
+        title: "Datos de loteria editados",
+        showConfirmButton: false,
+        timer: 3500
+      });
     }
   }
 
@@ -798,7 +821,6 @@ function limpiar2() {
   nombreC.value = "";
   direccionC.value = "";
   telefonoC.value = "";
-  fechaC.value = "";
   estadoC.value = "";
 
 }
