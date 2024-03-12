@@ -77,7 +77,7 @@
                 <h6 class="rowc">Estado: Disponible<div class="color" style="background-color: #00075F;"></div>
                 </h6>
                 <hr v-if="estado === 0">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">🤝
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">🤝
                   Adquirir Boleta </button>
               </div>
               <div v-if="estado === 1">
@@ -94,13 +94,13 @@
               </div>
               <div v-if="estado !== 0" class="cen">
                 <hr>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#participante">👁‍🗨
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#participante" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">👁‍🗨
                   Ver datos del participante </button>
                 <br v-if="estado !== 3">
-                <button v-if="estado !== 3" type="button" class="btn btn-primary" @click="libb()">❌ Liberar Boleta
+                <button v-if="estado !== 3" type="button" class="btn btn-primary" @click="libb()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">❌ Liberar Boleta
                 </button>
                 <br v-if="estado !== 2 && estado !== 3">
-                <button v-if="estado === 1" type="button" class="btn btn-primary" @click="pagar()"> ✔ Pagar Boleta
+                <button v-if="estado === 1" type="button" class="btn btn-primary" @click="pagar()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"> ✔ Pagar Boleta
                 </button>
               </div>
 
@@ -128,7 +128,7 @@
                 <option value="3">Ganador</option>
               </select>
               <p v-if="error2 != ''">{{ error2 }}</p>
-              <button class="btn btn-primary botoncito" @click="validarcliente()">Registrar</button>
+              <button class="btn btn-primary botoncito" @click="validarcliente()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Registrar</button>
             </div>
           </div>
         </div>
