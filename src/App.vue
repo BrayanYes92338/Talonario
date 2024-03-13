@@ -51,7 +51,7 @@
             <div v-for="(item, i) in arr" :key="i">
               <button class="rounded-circle boleta" :style="item.estado === 0 ? 'background-color: #014BAE'
                 : item.estado === 1 ? 'background-color: #CF1635'
-                  : item.estado === 2 ? 'background-color: #0090A9'
+                  : item.estado === 2 ? 'background-color: #18BF67'
                     : item.estado === 3 ? 'background-color: #BA8C34' : ''" type="button" data-bs-toggle="modal"
                 data-bs-target="#exampleModal" @click="traerDatos(item, i)">{{ item.numero }}</button>
             </div>
@@ -663,7 +663,7 @@ function validar() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "La fecha seleccionada no puede ser anterior o igual a la fecha actual, ni puede ser la fecha de mañana. Por favor, seleccione una fecha posterior",
+        text: "La fecha seleccionada no puede ser anterior o igual a la fecha actual, Por favor seleccione una fecha posterior",
         timer: 5500
       });
     } else {
@@ -748,7 +748,7 @@ function validar() {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "La fecha seleccionada no puede ser anterior o igual a la fecha actual, ni puede ser la fecha de mañana. Por favor, seleccione una fecha posterior",
+        text: "La fecha seleccionada no puede ser anterior o igual a la fecha actual, Por favor seleccione una fecha posterior",
         timer: 5500
       });
 
