@@ -7,7 +7,8 @@
     <main>
       <div class="modal-intro" v-if="modal_intro">
         <div class="intro">
-          <div class="color-titulo"  :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+          <div class="color-titulo"
+            :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
             <h2 class="titulo-info-talonario">CONFIGURA TU TALONARIO</h2>
           </div>
           <div class="input-group">
@@ -26,7 +27,8 @@
               <option value="1000">0-999</option>
             </select>
             <input type="date" placeholder="Fecha de sorteo" v-model="fecha">
-            <button class="buttonr" @click="validar()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Guardar</button>
+            <button class="buttonr" @click="validar()"
+              :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Guardar</button>
           </div>
 
         </div>
@@ -41,7 +43,9 @@
             <p class="icon">🗓️<span>{{ item.fecha }}</span></p>
             <h6></h6>
             <div class="boton">
-              <button class="btn-editar" @click="editar(item, i)" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"> Editar<i class="fa fa-edit"></i></button>
+              <button class="btn-editar" @click="editar(item, i)"
+                :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">
+                Editar<i class="fa fa-edit"></i></button>
             </div>
           </div>
         </div>
@@ -60,9 +64,13 @@
         <div class="cont-acciones">
           <h3 class="titulo-info">Acciones</h3>
           <div class="cuerpo-acciones">
-            <button class="btn-acciones" @click="listardatos()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i class="fa fa-list-ul" ></i>LISTAR BOLETAS</button>
-            <button class="btn-acciones" @click="aparecerpersonalizar()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i class="fa fa-cogs"></i>PERSONALIZAR</button>
-            <button class="btn-acciones" @click="Ganador()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }" ><i class="fa fa-trophy"></i>GANADOR</button>
+            <button class="btn-acciones" @click="listardatos()"
+              :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i
+                class="fa fa-list-ul"></i>LISTAR BOLETAS</button>
+            <button class="btn-acciones" @click="aparecerpersonalizar()"
+              :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i
+                class="fa fa-cogs"></i>PERSONALIZAR</button>
+            
           </div>
         </div>
       </div>
@@ -77,7 +85,8 @@
                 <h6 class="rowc">Estado: Disponible<div class="color" style="background-color: #00075F;"></div>
                 </h6>
                 <hr v-if="estado === 0">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">🤝
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop2"
+                  :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">🤝
                   Adquirir Boleta </button>
               </div>
               <div v-if="estado === 1">
@@ -94,13 +103,23 @@
               </div>
               <div v-if="estado !== 0" class="cen">
                 <hr>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#participante" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">👁‍🗨
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#participante"
+                  :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">👁‍🗨
                   Ver datos del participante </button>
                 <br v-if="estado !== 3">
-                <button v-if="estado !== 3" type="button" class="btn btn-primary" @click="libb()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">❌ Liberar Boleta
+                <button v-if="estado !== 3" type="button" class="btn btn-primary" @click="libb()"
+                  :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">❌
+                  Liberar Boleta
                 </button>
                 <br v-if="estado !== 2 && estado !== 3">
-                <button v-if="estado === 1" type="button" class="btn btn-primary" @click="pagar()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"> ✔ Pagar Boleta
+                <button v-if="estado === 1" type="button" class="btn btn-primary" @click="pagar()"
+                  :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">
+                  ✔ Pagar Boleta
+                </button>
+                <br v-if="estado === 2">
+                <button v-if="estado === 2" type="button" class="btn btn-primary" @click="ganador()"
+                  :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">👑
+                  Elejir como ganador
                 </button>
               </div>
 
@@ -113,7 +132,7 @@
         <div class="modal-dialog">
           <div class="modal-content contenido">
             <div class="modal-header ">
-              <h1 class="modal-title fs-5 titulo-datos-boleta" id="staticBackdropLabel">Datos de Boleta</h1>
+              <h1 class="modal-title fs-5 titulo-datos-boleta" id="staticBackdropLabel">Datos de Boleta {{ numsele }}</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -125,10 +144,10 @@
                 <option disabled selected hidden value="">Seleccione el estado de la boleta</option>
                 <option value="1">Apartado</option>
                 <option value="2">Pagado</option>
-                <option value="3">Ganador</option>
               </select>
               <p v-if="error2 != ''">{{ error2 }}</p>
-              <button class="btn btn-primary botoncito" @click="validarcliente()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Registrar</button>
+              <button class="btn btn-primary botoncito" @click="validarcliente()"
+                :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Registrar</button>
             </div>
           </div>
         </div>
@@ -137,7 +156,8 @@
       <div class="modal fade" id="participante" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-bottom">
           <div class="modal-content">
-            <div class="modal-header  encabezado"  :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+            <div class="modal-header  encabezado"
+              :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
               <h1 class="modal-title fs-5 titulo-datos-boleta titulo4" id="exampleModalLabel2">Participante</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -182,7 +202,6 @@
                   <span v-if="estado === 3">Ganador</span>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -190,7 +209,8 @@
       <div class="listar-boletas caja" v-if="divaparecer2">
         <div class="cont-listar">
           <div class="cont-conted">
-            <div class="cont-listado-titulo"  :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+            <div class="cont-listado-titulo"
+              :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
               <span class="closeicon " @click="cerrar2()"><i class="fa fa-times"></i></span>
               <h2>Listado de Boleta</h2>
             </div>
@@ -204,7 +224,6 @@
                     <th>Fecha Compra Boleta</th>
                     <th>Estado Boleta</th>
                     <th>N. Boleta </th>
-                    <th>Eliminar</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -215,13 +234,15 @@
                     <td>{{ item.fecha }}</td>
                     <td>{{ item.estadoTexto }}</td>
                     <td>{{ item.boleta }}</td>
-                    <td><button class="btn-eliminar" @click="eliminar(i)"> <i class="fa fa-trash"></i></button></td>
+
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="contenido2">
-              <button class="btn-acciones" @click="download()" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i class="fa fa-download"></i>GENERAR ARCHIVO</button>
+              <button class="btn-acciones" @click="download()"
+                :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i
+                  class="fa fa-download"></i>GENERAR ARCHIVO</button>
             </div>
           </div>
         </div>
@@ -229,7 +250,8 @@
       <div class="modal-temas" v-if="divaparecer">
         <div class="cont-temas">
           <div class="cont-conte2">
-            <div class="titulo_temas" :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+            <div class="titulo_temas"
+              :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
               <span class="closeicon " @click="cerrar()"><i class="fa fa-times"></i></span>
               <h2>Temas Para El Talonario</h2>
             </div>
@@ -357,6 +379,8 @@
     </footer>
   </div>
 </template>
+
+
 <script setup>
 import { ref } from "vue"
 import jsPDF from 'jspdf';
@@ -383,7 +407,6 @@ let estado = ref(0);
 let nombreC = ref("");
 let direccionC = ref("");
 let telefonoC = ref("");
-let fechaC = ref("");
 let estadoC = ref("");
 let nombreP = ref("");
 let direccionP = ref("");
@@ -394,10 +417,7 @@ let divaparecer2 = ref(false);
 let error2 = ref("");
 
 
-function Ganador() {
-  const NGanador = Math.floor(Math.random() * 100) + 1;
-  Swal.fire("El número ganador es: " + NGanador);
-}
+
 
 
 function restaurarColor() {
@@ -445,8 +465,7 @@ function download() {
 function validarcliente() {
 
   let texto = /^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ\s]+$/;
-  let fechajuego = datostalonario.value[datostalonario.value.length - 1].fecha;
- 
+
 
   if (nombreC.value == "") {
     Swal.fire({
@@ -491,7 +510,7 @@ function validarcliente() {
       text: "El campo de telefono debe tener al menos 10 numeros",
       timer: 3500
     });
-  }  else if (estadoC.value == "") {
+  } else if (estadoC.value == "") {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -508,6 +527,10 @@ function validarcliente() {
       showConfirmButton: false,
       timer: 1500
     });
+
+    let modal = document.getElementById('staticBackdrop2');
+    let bootstrapModal = bootstrap.Modal.getInstance(modal);
+    bootstrapModal.hide();
   }
 
 
@@ -580,12 +603,105 @@ function libb() {
 
   arr.value[i.value].estado = 0
   arr.value[i.value].comprador = {}
+
+  Swal.fire({
+    icon: "success",
+    title: "Boleta Liberada",
+    showConfirmButton: false,
+    timer: 1500
+  })
+
+  let modal = document.getElementById('exampleModal');
+  let bootstrapModal = bootstrap.Modal.getInstance(modal);
+  bootstrapModal.hide();
+
+
+  let id = numsele.value
+
+  for (let i = 0; i < registros.value.length; i++) {
+
+    if (registros.value[i].boleta === id) {
+
+      registros.value.splice(i, 1)
+
+    }
+  }
 }
 
 function pagar() {
   arr.value[i.value].estado = 2
+  Swal.fire({
+    icon: "success",
+    title: "Boleta Pagada",
+    showConfirmButton: false,
+    timer: 1500
+  })
+
+  let modal = document.getElementById('exampleModal');
+  let bootstrapModal = bootstrap.Modal.getInstance(modal);
+  bootstrapModal.hide();
+
+  let id = numsele.value
+
+  for (let i = 0; i < registros.value.length; i++) {
+
+
+    if (registros.value[i].boleta === id) {
+
+      registros.value[i].estadoTexto = "Pagado"
+
+
+    }
+  }
 
 }
+
+function ganador() {
+
+
+  Swal.fire({
+    icon: "success",
+    title: "Boleta Ganadora",
+    showConfirmButton: false,
+    timer: 1500
+  })
+
+  let modal = document.getElementById('exampleModal');
+  let bootstrapModal = bootstrap.Modal.getInstance(modal);
+  bootstrapModal.hide();
+
+  let validar = false;
+
+  let id = numsele.value
+
+  for (let i = 0; i < registros.value.length; i++) {
+
+    if (registros.value[i].estadoTexto === "Ganador") {
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "No puede haber mas de un Ganador",
+        timer: 3500
+      });
+
+      return ""
+    } else {
+      if (registros.value[i].boleta === id) {
+
+        registros.value[i].estadoTexto = "Ganador"
+
+        validar = true
+      }
+    }
+  }
+  console.log(validar);
+  if (validar === true) {
+    arr.value[i.value].estado = 3
+    validar = false;
+  }
+}
+
 
 
 function validar() {
@@ -638,7 +754,7 @@ function validar() {
         timer: 3500
       });
     }
-     else if (loterias.value == "") {
+    else if (loterias.value == "") {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -729,7 +845,7 @@ function validar() {
         text: "Seleccione la loteria que quieras jugar",
         timer: 3500
       });
-    } 
+    }
     else if (cantboletas.value == "") {
       Swal.fire({
         icon: "error",
@@ -825,8 +941,5 @@ function limpiar2() {
 
 }
 
-function eliminar(i) {
-  registros.value.splice(i, 1)
-}
 
 </script>
