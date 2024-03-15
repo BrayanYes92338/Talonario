@@ -418,8 +418,6 @@ let error2 = ref("");
 
 
 
-
-
 function restaurarColor() {
   const color = {
     colorheader: colorheader.value,
@@ -457,6 +455,9 @@ function download() {
   autoTable(doc, {
     head: [headers],
     body: bodyData,
+    styles: {
+      halign: 'center',
+    },
   });
   doc.save('Registro.pdf');
 }
@@ -659,47 +660,57 @@ function pagar() {
 function ganador() {
 
 
-  Swal.fire({
-    icon: "success",
-    title: "Boleta Ganadora",
-    showConfirmButton: false,
-    timer: 1500
-  })
+Swal.fire({
+  icon: "success",
+  title: "Boleta Ganadora",
+  showConfirmButton: false,
+  timer: 2500
+})
 
-  let modal = document.getElementById('exampleModal');
-  let bootstrapModal = bootstrap.Modal.getInstance(modal);
-  bootstrapModal.hide();
+let modal = document.getElementById('exampleModal');
+let bootstrapModal = bootstrap.Modal.getInstance(modal);
+bootstrapModal.hide();
 
-  let validar = false;
+let validar = false;
 
-  let id = numsele.value
+let id = numsele.value
+let ganador = 0;
 
-  for (let i = 0; i < registros.value.length; i++) {
-
-    if (registros.value[i].estadoTexto === "Ganador") {
-
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "No puede haber mas de un Ganador",
-        timer: 3500
-      });
-
-      return ""
-    } else {
-      if (registros.value[i].boleta === id) {
-
-        registros.value[i].estadoTexto = "Ganador"
-
-        validar = true
+registros.value.forEach(e => {
+      console.log(e);
+      if(e.estadoTexto === "Ganador"){
+        ganador ++
       }
-    }
+    });
+
+for (let i = 0; i < registros.value.length; i++) {
+  
+   
+  
+  if (ganador > 0) {
+
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "No puede haber mas de un Ganador",
+      timer: 3500
+    });
+
+    return;
+  } else {
+    if (registros.value[i].boleta === id) {
+
+      registros.value[i].estadoTexto = "Ganador"
+      validar = true;
+
+    }    
   }
-  console.log(validar);
-  if (validar === true) {
-    arr.value[i.value].estado = 3
-    validar = false;
-  }
+}
+console.log(validar);
+if (validar === true) {
+  arr.value[i.value].estado = 3
+  validar = false;
+}
 }
 
 
@@ -751,6 +762,13 @@ function validar() {
         icon: "error",
         title: "Oops...",
         text: "El valor de la boleta debe ser numerico",
+        timer: 3500
+      });
+    }else if(parseInt(vboleta.value)>=parseInt(vrifa.value)){
+     Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta debe puede ser mayor al valor del premio",
         timer: 3500
       });
     }
@@ -835,6 +853,13 @@ function validar() {
         icon: "error",
         title: "Oops...",
         text: "El valor de la boleta debe ser numerico",
+        timer: 3500
+      });
+    }else if(parseInt(vboleta.value)>=parseInt(vrifa.value)){
+     Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "El valor de la boleta debe puede ser mayor al valor del premio",
         timer: 3500
       });
     }
