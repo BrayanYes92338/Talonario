@@ -37,8 +37,8 @@
         <div class="cont-informacion">
           <h3 class="titulo-info">Información del Talonario</h3>
           <div class="cuerpo-info" v-for="(item, i) in datostalonario" :key="i">
-      <p class="icon">🏆<span>{{ item.vrifa.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }) }}</span></p>
-           <p class="icon">💲<span>{{ item.vboleta.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }) }}</span></p>
+      <p class="icon">🏆<span>{{ item.vrifa.toLocaleString('es-CO') }}</span></p>
+           <p class="icon">💲<span>{{ item.vboleta.toLocaleString('es-CO')}) }}</span></p>
             <p class="icon">🏦<span>{{ item.loterias }}</span></p>
             <p class="icon">🗓️<span>{{ item.fecha }}</span></p>
             <h6></h6>
