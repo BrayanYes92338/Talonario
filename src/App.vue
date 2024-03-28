@@ -9,6 +9,7 @@
         <div class="intro">
           <div class="color-titulo"
             :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
+            <span class="closeicon2" @click="cerrar3()"><i class="fa fa-times"></i></span>
             <h2 class="titulo-info-talonario">CONFIGURA TU TALONARIO</h2>
           </div>
           <div class="input-group">
@@ -21,7 +22,7 @@
               <option value="Santander">Santander</option>
               <option value="Baloto">Baloto</option>
             </select>
-            <select name="" id="" v-model="cantboletas">
+            <select name="" id="" v-model="cantboletas" :disabled="selectDeshabilitado">
               <option disabled selected hidden value="">Cantidad de Boletas</option>
               <option value="100">0-99</option>
               <option value="1000">0-999</option>
@@ -37,8 +38,8 @@
         <div class="cont-informacion">
           <h3 class="titulo-info">Información del Talonario</h3>
           <div class="cuerpo-info" v-for="(item, i) in datostalonario" :key="i">
-        <p class="icon">🏆<span>{{ item.vrifa }}</span></p>
-             <p class="icon">💲<span>{{ item.vboleta }}</span></p>
+            <p class="icon">🏆<span>{{ item.vrifa }}</span></p>
+            <p class="icon">💲<span>{{ item.vboleta }}</span></p>
             <p class="icon">🏦<span>{{ item.loterias }}</span></p>
             <p class="icon">🗓️<span>{{ item.fecha }}</span></p>
             <h6></h6>
@@ -70,7 +71,7 @@
             <button class="btn-acciones" @click="aparecerpersonalizar()"
               :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i
                 class="fa fa-cogs"></i>PERSONALIZAR</button>
-            
+
           </div>
         </div>
       </div>
@@ -145,7 +146,6 @@
                 <option value="1">Apartado</option>
                 <option value="2">Pagado</option>
               </select>
-              <p v-if="error2 != ''">{{ error2 }}</p>
               <button class="btn btn-primary botoncito" @click="validarcliente()"
                 :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Registrar</button>
             </div>
@@ -224,6 +224,7 @@
                     <th>Fecha Compra Boleta</th>
                     <th>Estado Boleta</th>
                     <th>N. Boleta </th>
+                    <th>Boton</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -234,7 +235,17 @@
                     <td>{{ item.fecha }}</td>
                     <td>{{ item.estadoTexto }}</td>
                     <td>{{ item.boleta }}</td>
-
+                    <td>
+                      <button class="btn-acciones" @click="editarpersonas(item, i)"
+                        :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i
+                          class="fa fa-edit"></i>Editar</button>
+                        </td>
+                  </tr>
+                  <tr>
+                    <td id="r" colspan="7">Dinero recaudado: {{ vpagada }}</td>
+                  </tr>
+                  <tr>
+                    <td id="r" colspan="7">Deuda total: {{ vdeuda }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -414,7 +425,17 @@ let telefonoP = ref("");
 let fechaP = ref("");
 let divaparecer = ref(false);
 let divaparecer2 = ref(false);
-let error2 = ref("");
+let vpagada = ref(0);
+let vdeuda = ref(0)
+let acum = ref(0)
+let acumm = ref(0)
+let con = ref(0)
+let conn = ref(0)
+let selectDeshabilitado = ref(false);
+let edit2 = true;
+let index2 = null;
+
+
 
 
 
@@ -439,14 +460,23 @@ function download() {
   let tableElement = document.getElementById('tab');
   let rows = tableElement.querySelectorAll('tr');
 
-
   for (let i = 1; i < rows.length; i++) {
     let row = rows[i];
     let cols = row.querySelectorAll('td');
     let rowData = [];
     for (let j = 0; j < cols.length; j++) {
       let col = cols[j];
-      rowData.push(col.innerText);
+      let we = col.innerText
+      if (col.id === "r") {
+        let rowData = []
+        rowData.push({
+          content: we,
+          colSpan: 6
+        })
+        bodyData.push(rowData)
+      } else {
+        rowData.push(col.innerText);
+      }
     }
     bodyData.push(rowData);
   }
@@ -463,12 +493,12 @@ function download() {
 }
 
 
-function validarcliente() {
 
+function validarcliente() {
   let texto = /^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ\s]+$/;
 
-
-  if (nombreC.value == "") {
+  if (edit2 ==true) {
+    if (nombreC.value == "") {
     Swal.fire({
       icon: "error",
       title: "Oops...",
@@ -533,8 +563,91 @@ function validarcliente() {
     let bootstrapModal = bootstrap.Modal.getInstance(modal);
     bootstrapModal.hide();
   }
+  } else {
+    if (nombreC.value == "") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El nombre del comprador es requerido",
+      timer: 3500
+    });
+
+  } else if (!texto.test(nombreC.value)) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de nombre comprador no puede llevar numeros",
+      timer: 3500
+    });
+  } else if (direccionC.value == "") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La dirrecion del comprador es requerida",
+      timer: 3500
+    });
+  } else if (telefonoC.value == "") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El telefono del comprador es requerido",
+      timer: 3500
+    });
+  } else if (isNaN(telefonoC.value) == true) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de telefono del comprador debe ser numerico",
+      timer: 3500
+    });
+  } else if (telefonoC.value.length != 10) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de telefono debe tener al menos 10 numeros",
+      timer: 3500
+    });
+  } else if (estadoC.value == "") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El estado de la compra de la boleta es requerido",
+      timer: 3500
+    });
+  } else {
+    registros.value[index2].nombre = nombreC.value;
+    registros.value[index2].direccion = direccionC.value;
+    registros.value[index2].telefono = telefonoC.value;
+    limpiar2()
+
+    Swal.fire({
+      icon: "success",
+      title: "Boleta Actualizada",
+      showConfirmButton: false,
+      timer: 1500
+    });
+
+    let modal = document.getElementById('staticBackdrop2');
+    let bootstrapModal = bootstrap.Modal.getInstance(modal);
+    bootstrapModal.hide();
+  }
+  }
+}
 
 
+
+function editarpersonas(item, i) {
+    nombreC.value = item.nombre;
+    direccionC.value = item.direccion;
+    telefonoC.value = item.telefono;
+    estadoC.value = item.estado;
+
+    let modalEdicion = document.getElementById('staticBackdrop2');
+    let bootstrapModalEdicion = bootstrap.Modal.getInstance(modalEdicion);
+    bootstrapModalEdicion.show();
+
+    edit2 = false;
+    index2 = i;
 }
 
 
@@ -562,6 +675,8 @@ function regBoletas() {
   }
 
   registros.value.push(cliente)
+  totalDinero()
+  totalDeuda()
 
   arr.value[i.value].comprador = cliente
   console.log(arr.value);
@@ -579,6 +694,21 @@ function cerrar() {
   divaparecer.value = false
 
 }
+
+function cerrar3() {
+
+  if (vrifa.value === "" || vboleta.value === "" || loterias.value === "" || cantboletas === "" || fecha.value === "") {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Debes completar todos los campos para poder guardar",
+      timer: 3500
+    });
+
+  }
+
+}
+
 
 function listardatos() {
   divaparecer2.value = true
@@ -601,6 +731,7 @@ function traerDatos(item, index) {
 }
 
 function libb() {
+
 
   arr.value[i.value].estado = 0
   arr.value[i.value].comprador = {}
@@ -625,12 +756,20 @@ function libb() {
 
       registros.value.splice(i, 1)
 
+
     }
+  }
+  if (estado.value === 2) {
+    descontar()
+  } else {
+    descontarD()
   }
 }
 
 function pagar() {
   arr.value[i.value].estado = 2
+
+
   Swal.fire({
     icon: "success",
     title: "Boleta Pagada",
@@ -654,63 +793,64 @@ function pagar() {
 
     }
   }
-
+  totalDinero()
+  descontarD()
 }
 
 function ganador() {
 
 
-Swal.fire({
-  icon: "success",
-  title: "Boleta Ganadora",
-  showConfirmButton: false,
-  timer: 2500
-})
+  Swal.fire({
+    icon: "success",
+    title: "Boleta Ganadora",
+    showConfirmButton: false,
+    timer: 2500
+  })
 
-let modal = document.getElementById('exampleModal');
-let bootstrapModal = bootstrap.Modal.getInstance(modal);
-bootstrapModal.hide();
+  let modal = document.getElementById('exampleModal');
+  let bootstrapModal = bootstrap.Modal.getInstance(modal);
+  bootstrapModal.hide();
 
-let validar = false;
+  let validar = false;
 
-let id = numsele.value
-let ganador = 0;
+  let id = numsele.value
+  let ganador = 0;
 
-registros.value.forEach(e => {
-      console.log(e);
-      if(e.estadoTexto === "Ganador"){
-        ganador ++
+  registros.value.forEach(e => {
+    console.log(e);
+    if (e.estadoTexto === "Ganador") {
+      ganador++
+    }
+  });
+
+  for (let i = 0; i < registros.value.length; i++) {
+
+
+
+    if (ganador > 0) {
+
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "No puede haber mas de un Ganador",
+        timer: 3500
+      });
+
+      return;
+    } else {
+      if (registros.value[i].boleta === id) {
+
+        registros.value[i].estadoTexto = "Ganador"
+        validar = true;
+
       }
-    });
-
-for (let i = 0; i < registros.value.length; i++) {
-  
-   
-  
-  if (ganador > 0) {
-
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "No puede haber mas de un Ganador",
-      timer: 3500
-    });
-
-    return;
-  } else {
-    if (registros.value[i].boleta === id) {
-
-      registros.value[i].estadoTexto = "Ganador"
-      validar = true;
-
-    }    
+    }
   }
-}
-console.log(validar);
-if (validar === true) {
-  arr.value[i.value].estado = 3
-  validar = false;
-}
+  console.log(validar);
+  if (validar === true) {
+    arr.value[i.value].estado = 3
+    validar = false;
+  }
 }
 
 
@@ -718,7 +858,7 @@ if (validar === true) {
 function validar() {
   let fecha_actual = new Date()
   let fecha_select = new Date(fecha.value);
-
+  cerrar3()
 
   if (edit == true) {
     if (vrifa.value == "") {
@@ -764,11 +904,11 @@ function validar() {
         text: "El valor de la boleta debe ser numerico",
         timer: 3500
       });
-    }else if(parseInt(vboleta.value)>=parseInt(vrifa.value)){
-     Swal.fire({
+    } else if (parseInt(vboleta.value) > parseInt(vrifa.value)) {
+      Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "El valor de la boleta debe puede ser mayor al valor del premio",
+        text: "El valor de la boleta no puede ser superior al premio",
         timer: 3500
       });
     }
@@ -793,7 +933,7 @@ function validar() {
         text: "Seleccione la fecha del sorteo",
         timer: 3500
       });
-    } else if (fecha_actual.setHours(0,0,0,0) >= fecha_select) {
+    } else if (fecha_actual.setHours(0, 0, 0, 0) >= fecha_select) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -810,7 +950,8 @@ function validar() {
 
       agregar()
 
-      modal_intro.value = false
+      modal_intro.value = false;
+
     }
   } else {
     if (vrifa.value == "") {
@@ -855,11 +996,11 @@ function validar() {
         text: "El valor de la boleta debe ser numerico",
         timer: 3500
       });
-    }else if(parseInt(vboleta.value)>=parseInt(vrifa.value)){
-     Swal.fire({
+    } else if (parseInt(vboleta.value) > parseInt(vrifa.value)) {
+      Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "El valor de la boleta debe puede ser mayor al valor del premio",
+        text: "El valor de la boleta no puede ser superior al premio",
         timer: 3500
       });
     }
@@ -885,7 +1026,7 @@ function validar() {
         text: "Seleccione la fecha del sorteo",
         timer: 3500
       });
-    } else if (fecha_actual.setHours(0,0,0,0)> fecha_select) {
+    } else if (fecha_actual.setHours(0, 0, 0, 0) > fecha_select) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -894,12 +1035,11 @@ function validar() {
       });
 
     } else {
- datostalonario.value[index].vrifa = parseFloat(vrifa.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+      datostalonario.value[index].vrifa = parseFloat(vrifa.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
       datostalonario.value[index].vboleta = parseFloat(vboleta.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
       datostalonario.value[index].loterias = loterias.value;
       datostalonario.value[index].cantboletas = cantboletas.value;
       datostalonario.value[index].fecha = fecha.value;
-
       edit = true;
       limpiar();
       modal_intro.value = false;
@@ -915,8 +1055,7 @@ function validar() {
 }
 
 
-
- function agregar() {
+function agregar() {
 
   const talonario = {
     vrifa: parseFloat(vrifa.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' }),
@@ -945,14 +1084,22 @@ function validar() {
 function editar(item, i) {
   console.log(item);
   console.log(i);
-  vrifa.value = item.vrifa;
-  vboleta.value = item.vboleta;
+  let numero = revertirFormatoMoneda(item.vboleta);
+  let num = revertirFormatoMoneda(item.vrifa);
+
+  vrifa.value = num;
+  vboleta.value = numero;
   loterias.value = item.loterias;
   fecha.value = item.fecha;
+  cantboletas.value = item.cantboletas;
+  selectDeshabilitado.value = true;
   edit = false;
   index = i;
   modal_intro.value = true;
 }
+
+
+
 
 function limpiar() {
   vrifa.value = "";
@@ -971,5 +1118,73 @@ function limpiar2() {
 
 }
 
+function revertirFormatoMoneda(valorMoneda) {
+
+  let numero = valorMoneda.replace(/[^0-9,-]+/g, "");
+
+  numero = numero.replace(',', '.');
+
+  return parseInt(numero);
+}
+
+function totalDinero() {
+  let numero = revertirFormatoMoneda(datostalonario.value[0].vboleta);
+
+  let existe = false
+
+  registros.value.forEach(e => {
+    if (e.estadoTexto === "Pagado") {
+      existe = true
+      con.value++
+
+    }
+  });
+
+  if (existe === true) {
+    acum.value = numero * con.value
+  }
+  con.value = 0
+
+  vpagada.value = acum.value
+
+}
+
+function descontar() {
+  let numero = revertirFormatoMoneda(datostalonario.value[0].vboleta);
+
+  acum.value -= numero
+
+  vpagada.value = acum.value
+}
+
+function totalDeuda() {
+  let numero = revertirFormatoMoneda(datostalonario.value[0].vboleta);
+
+  let existe = false
+
+  registros.value.forEach(e => {
+    if (e.estadoTexto === "Apartado") {
+      existe = true
+      conn.value++
+
+    }
+  });
+
+  if (existe === true) {
+    acumm.value = numero * conn.value
+  }
+  conn.value = 0
+
+  vdeuda.value = acumm.value
+
+}
+
+function descontarD() {
+  let numero = revertirFormatoMoneda(datostalonario.value[0].vboleta);
+
+  acumm.value -= numero
+
+  vdeuda.value = acumm.value
+}
 
 </script>

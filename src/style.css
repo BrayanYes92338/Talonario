@@ -71,8 +71,8 @@ body {
 .intro {
   border: solid 2px gray;
   background-color: white;
-  width: 380px;
-  height: 620px;
+  width: 350px;
+  height: 500px;
   border-radius: 20px;
   z-index: 3;
 }
@@ -87,26 +87,28 @@ body {
   height: 50px;
   border-top-right-radius: 17px;
   border-top-left-radius: 17px;
+  position: relative;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
   text-align: left;
-  padding: 25px 25px;
+  padding: 20px 15px;
+
 }
 
 input,
 select {
-  padding: 17px 25px;
-  margin-bottom: 25px;
+  padding: 15px 15px;
+  margin-bottom: 15px;
   border: 1px solid gray;
   color: #283629;
   outline: none;
 }
 
 .buttonr {
-  margin-top: 8px;
+
   background-color: #014BAE;
   color: white;
   padding: 14px 14px;
@@ -160,6 +162,19 @@ select {
   color: white;
   background-color: #014BAE;
   cursor: pointer;
+}
+
+.botonpersonas{
+  padding: 12px 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  color: white;
+  background-color: #014BAE;
+  cursor: pointer;
+  margin-left: 20px;
+  font-size: 19px;
+  font-weight: bolder;
 }
 
 .boleta {
@@ -321,7 +336,7 @@ h3 {
   border: solid 2px gray;
   background-color: white;
   width: 380px;
-  height: 510px;
+  height: 480px;
   border-radius: 8px;
   padding: 20px 20px;
 }
@@ -382,6 +397,14 @@ h3 {
   position: absolute;
   right: 20px;
   top: 20px;
+  cursor: pointer;
+}
+
+.closeicon2 {
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 8px;
   cursor: pointer;
 }
 
