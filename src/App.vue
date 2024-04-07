@@ -9,7 +9,7 @@
         <div class="intro">
           <div class="color-titulo"
             :style="{ backgroundColor: colorheader === '1' ? '#F1B300' : colorheader === '2' ? '#78A036' : colorheader === '3' ? '#BD5288' : colorheader === '4' ? '#F6B363' : '#014BAE' }">
-            <span class="closeicon2" @click="cerrar3()"><i class="fa fa-times"></i></span>
+            <span class="closeicon2" @click="aviso()"><i class="fa fa-times"></i></span>
             <h2 class="titulo-info-talonario">CONFIGURA TU TALONARIO</h2>
           </div>
           <div class="input-group">
@@ -224,7 +224,7 @@
                     <th>Fecha Compra Boleta</th>
                     <th>Estado Boleta</th>
                     <th>N. Boleta </th>
-                    <th>Boton</th>
+                   
                   </tr>
                 </thead>
                 <tbody>
@@ -235,17 +235,13 @@
                     <td>{{ item.fecha }}</td>
                     <td>{{ item.estadoTexto }}</td>
                     <td>{{ item.boleta }}</td>
-                    <td>
-                      <button class="btn-acciones" @click="editarpersonas(item, i)"
-                        :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }"><i
-                          class="fa fa-edit"></i>Editar</button>
-                        </td>
+                   
                   </tr>
                   <tr>
-                    <td id="r" colspan="7">Dinero recaudado: {{ vpagada }}</td>
+                    <td id="r" colspan="6">Dinero recaudado: {{ vpagada }}</td>
                   </tr>
                   <tr>
-                    <td id="r" colspan="7">Deuda total: {{ vdeuda }}</td>
+                    <td id="r" colspan="6">Deuda total: {{ vdeuda }}</td>
                   </tr>
                 </tbody>
               </table>
@@ -636,21 +632,6 @@ function validarcliente() {
 
 
 
-function editarpersonas(item, i) {
-    nombreC.value = item.nombre;
-    direccionC.value = item.direccion;
-    telefonoC.value = item.telefono;
-    estadoC.value = item.estado;
-
-    let modalEdicion = document.getElementById('staticBackdrop2');
-    let bootstrapModalEdicion = bootstrap.Modal.getInstance(modalEdicion);
-    bootstrapModalEdicion.show();
-
-    edit2 = false;
-    index2 = i;
-}
-
-
 function regBoletas() {
 
   const estado = parseInt(estadoC.value);
@@ -695,19 +676,29 @@ function cerrar() {
 
 }
 
-function cerrar3() {
 
-  if (vrifa.value === "" || vboleta.value === "" || loterias.value === "" || cantboletas === "" || fecha.value === "") {
+
+function aviso() {
+  if (vrifa.value === "" || vboleta.value === ""|| cantboletas.value == "" || loterias.value === "" || fecha.value === "") {
     Swal.fire({
       icon: "error",
       title: "Oops...",
       text: "Debes completar todos los campos para poder guardar",
       timer: 3500
     });
-
+  } else {
+    cerrar3();
   }
+}
+
+
+function cerrar3(){
+  modal_intro.value = false
 
 }
+
+
+
 
 
 function listardatos() {
@@ -858,8 +849,8 @@ function ganador() {
 function validar() {
   let fecha_actual = new Date()
   let fecha_select = new Date(fecha.value);
-  cerrar3()
-
+  
+  
   if (edit == true) {
     if (vrifa.value == "") {
       Swal.fire({
@@ -949,7 +940,6 @@ function validar() {
       });
 
       agregar()
-
       modal_intro.value = false;
 
     }
@@ -1012,14 +1002,7 @@ function validar() {
         timer: 3500
       });
     }
-    else if (cantboletas.value == "") {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Seleccione la cantidad de boletas",
-        timer: 3500
-      });
-    } else if (fecha.value == "") {
+    else if (fecha.value == "") {
       Swal.fire({
         icon: "error",
         title: "Oops...",
@@ -1042,7 +1025,8 @@ function validar() {
       datostalonario.value[index].fecha = fecha.value;
       edit = true;
       limpiar();
-      modal_intro.value = false;
+      
+      cerrar3();
       Swal.fire({
         icon: "success",
         title: "Datos de loteria editados",
@@ -1050,6 +1034,8 @@ function validar() {
         timer: 3500
       });
     }
+
+    
   }
 
 }
@@ -1078,6 +1064,7 @@ function agregar() {
   console.log(arr.value);
   console.log(datostalonario.value);
   limpiar();
+
 }
 
 
@@ -1096,6 +1083,11 @@ function editar(item, i) {
   edit = false;
   index = i;
   modal_intro.value = true;
+
+  
+
+
+
 }
 
 
