@@ -201,6 +201,7 @@
                   <span v-if="estado === 2">Pagado</span>
                   <span v-if="estado === 3">Ganador</span>
                 </div>
+                <button data-bs-toggle="modal" data-bs-target="#participanteEdit" class="btn-editar2" :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }" >Editar</button>
               </div>
             </div>
           </div>
@@ -235,7 +236,6 @@
                     <td>{{ item.fecha }}</td>
                     <td>{{ item.estadoTexto }}</td>
                     <td>{{ item.boleta }}</td>
-                   
                   </tr>
                   <tr>
                     <td id="r" colspan="6">Dinero recaudado: {{ vpagada }}</td>
@@ -377,6 +377,25 @@
           </div>
         </div>
       </div>
+      <div class="modal fade prueba-color" id="participanteEdit" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content contenido3">
+            <div class="modal-header ">
+              <h1 class="modal-title fs-5 titulo-datos-boleta2" id="staticBackdropLabel">Datos del participante</h1>
+              <button type="button" class="btn-close  b2" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body2">
+              <input type="text" placeholder="Ingrese nombre del comprador" v-model="nombreP">
+              <input type="text" placeholder="Ingrese direccion del comprador" v-model="direccionP">
+              <input type="tel" required pattern="[0-9]+" maxlength="10" placeholder="Ingrese numero telefonico "
+                v-model="telefonoP">
+              <button class="btn btn-primary botoncito" @click="editarParticipante()"
+                :style="{ backgroundColor: colorbotones === '1' ? '#F1B300' : colorbotones === '2' ? '#78A036' : colorbotones === '3' ? '#BD5288' : colorbotones === '4' ? '#F6B363' : '#014BAE' }">Editar</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
     <footer class="footer"
       :style="{ backgroundColor: colorfooter === '1' ? '#F1B300' : colorfooter === '2' ? '#78A036' : colorfooter === '3' ? '#BD5288' : colorfooter === '4' ? '#F6B363' : '#014BAE' }">
@@ -419,6 +438,8 @@ let nombreP = ref("");
 let direccionP = ref("");
 let telefonoP = ref("");
 let fechaP = ref("");
+let estadoP = ref(null)
+let estadoTextoP = ref(null)
 let divaparecer = ref(false);
 let divaparecer2 = ref(false);
 let vpagada = ref(0);
@@ -1084,14 +1105,7 @@ function editar(item, i) {
   index = i;
   modal_intro.value = true;
 
-  
-
-
-
 }
-
-
-
 
 function limpiar() {
   vrifa.value = "";
@@ -1137,8 +1151,7 @@ function totalDinero() {
   }
   con.value = 0
 
-  vpagada.value = acum.value
-
+  vpagada.value = parseFloat(acum.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 }
 
 function descontar() {
@@ -1146,7 +1159,7 @@ function descontar() {
 
   acum.value -= numero
 
-  vpagada.value = acum.value
+  vpagada.value = parseFloat(acum.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 }
 
 function totalDeuda() {
@@ -1167,7 +1180,7 @@ function totalDeuda() {
   }
   conn.value = 0
 
-  vdeuda.value = acumm.value
+  vdeuda.value = parseFloat(acumm.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 
 }
 
@@ -1176,7 +1189,105 @@ function descontarD() {
 
   acumm.value -= numero
 
-  vdeuda.value = acumm.value
+  vdeuda.value = parseFloat(acumm.value).toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 }
 
+
+function editarParticipante() {
+  let texto = /^[A-Za-zÁÉÍÓÚáéíóúñÑüÜ\s]+$/;
+
+
+  if(nombreP.value ==""){
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El nombre del comprador es requerido",
+      timer: 3500
+    });
+    return;
+  }else if (!texto.test(nombreP.value)) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de nombre comprador no puede llevar numeros",
+      timer: 3500
+    });
+    return
+  } else if(direccionP.value ==""){
+ Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "La dirrecion del comprador es requerida",
+      timer: 3500
+    });
+    return;
+  }else if(telefonoP.value ==""){
+  Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "El telefono del comprador es requerido",
+        timer: 3500
+      });
+      return;
+  } else if (isNaN(telefonoP.value) == true) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de telefono del comprador debe ser numerico",
+      timer: 3500
+    });
+    return;
+  } else if (telefonoP.value.length != 10) {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "El campo de telefono debe tener al menos 10 numeros",
+      timer: 3500
+    });
+    return;
+  } 
+
+registros.value.forEach(e => {
+  if(e.boleta === numsele.value){
+    estadoP.value = e.estado
+    estadoTextoP.value = e.estadoTexto
+  }
+});
+
+  const cliente = {
+    nombre: nombreP.value,
+    direccion: direccionP.value,
+    telefono: telefonoP.value,
+    fecha: new Date().toISOString().split('T')[0],
+    estado: estadoP.value,
+    estadoTexto: estadoTextoP.value,
+    boleta: numsele.value
+  }
+
+  arr.value[i.value].comprador = cliente
+
+  console.log(registros.value);
+
+
+  for (let i = 0; i < registros.value.length; i++) {
+    const e = registros.value[i];
+    
+    if(e.boleta === numsele.value){
+      registros.value[i]=cliente
+    }
+  }
+  console.log(registros.value);
+
+
+  let modal = document.getElementById('participanteEdit');
+  let bootstrapModal = bootstrap.Modal.getInstance(modal);
+  bootstrapModal.hide();
+
+  Swal.fire({
+      icon: "success",
+      title: "Boleta Actualizada",
+      showConfirmButton: false,
+      timer: 1500
+    });
+}
 </script>
