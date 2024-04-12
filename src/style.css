@@ -370,6 +370,9 @@ margin-left: 50px;
   height: 420px;
   border-radius: 8px;
   padding: 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 
